@@ -149,9 +149,9 @@ LEVELS = {
          "initial_balls": 60, "skull_chance": 0.05, "colors_count": 5},
     3: {"time": 120, "target_score": 1000, "spiral_speed": 1,
          "initial_balls": 60, "skull_chance": 0.07, "colors_count": 6},
-    4: {"time": 150, "target_score": 1500, "spiral_speed": 1,
+    4: {"time": 150, "target_score": 1250, "spiral_speed": 1,
          "initial_balls": 55, "skull_chance": 0.08, "colors_count": 6},
-    5: {"time": 180, "target_score": 2000, "spiral_speed": 1,
+    5: {"time": 180, "target_score": 1500, "spiral_speed": 1,
          "initial_balls": 40, "skull_chance": 0.1, "colors_count": 6},
 }
 

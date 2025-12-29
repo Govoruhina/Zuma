@@ -49,6 +49,11 @@ class Game:
             collide = check_collision
         self._collide = collide
 
+        # --- чит-коды (ввод с клавиатуры) ---
+        self._cheat_code: str = "ZUMA500"
+        self._cheat_buffer: str = ""
+        self._cheat_buffer_limit: int = 32
+
     def start_level(self, level_number: int | None = None) -> None:
         # создаёт Level, сбрасывает снаряды, ставит "playing"
         if level_number is not None:
@@ -124,6 +129,22 @@ class Game:
                         self.flying_balls.extend(shots)
                 elif event.key == pygame.K_p:
                     self.toggle_pause()
+
+            # --- чит-коды: ZUMA500  +500 очков ---
+            if self.state in ("playing", "paused"):
+                if event.key == pygame.K_BACKSPACE:
+                    self._cheat_buffer = self._cheat_buffer[:-1]
+                else:
+                    ch = getattr(event, "unicode", "")
+                    if ch and ch.isprintable():
+                        self._cheat_buffer += ch.upper()
+                        # ограничиваем длину буфера
+                        if len(self._cheat_buffer) > self._cheat_buffer_limit:
+                            self._cheat_buffer = self._cheat_buffer[-self._cheat_buffer_limit:]
+
+                        if self._cheat_buffer.endswith(self._cheat_code):
+                            self.score += 500
+                            self._cheat_buffer = ""  # чтобы не срабатывало повторно сразу
 
     # --------------------------- обновление ---------------------------
     def update(self, dt: float) -> None:
